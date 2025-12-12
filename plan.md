@@ -1,0 +1,8 @@
+- User will input the company website url
+- We will first scrape the content of that url
+- Extract all the external link from the url
+- GPT model will tell what are the relevent links 
+- Will scrape those sites
+- Provide all the data: from landing page content to relevent external pages, to GPT model to create the broucher 
+- Will show the output first then
+- Will make a downloadable pdf after approve
