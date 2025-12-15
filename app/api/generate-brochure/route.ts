@@ -3,6 +3,7 @@ import {
   getReleventLinks,
 } from "@/lib/openai/openai_functions";
 import { scrapeData, scrapeLinks } from "@/lib/scraper/web_scraper";
+import fs from "fs/promises";
 
 export async function POST(req: Request) {
   const body = await req.json();
@@ -31,6 +32,8 @@ export async function POST(req: Request) {
   }
 
   const brochure = await generateBrochure(allDataForModel.slice(0, 5000));
+
+  await fs.writeFile("./sales-brochure.md", brochure); // generating a temp file
 
   return new Response(JSON.stringify({ data: brochure }), {
     status: 200,

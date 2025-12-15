@@ -16,6 +16,21 @@ export default function Home() {
     setLoading(false);
   }
 
+  async function onclickDownloadHandler() {
+    const data = await fetch("/api/download-pdf");
+
+    const blob = await data.blob();
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    console.log(a);
+    a.download = "sales-brochure.md";
+    document.body.appendChild(a);
+
+    a.click();
+    a.remove();
+    window.URL.revokeObjectURL(url);
+  }
   return (
     <div className="flex flex-col gap-8 my-32 mx-12">
       <input
@@ -34,8 +49,11 @@ export default function Home() {
       <div className="md:w-[70%] border-2 border-gray-500 rounded-lg p-2 outline-none justify-center items-center mx-auto overflow-y-auto h-70">
         <ReactMarkdown>{brochure}</ReactMarkdown>
       </div>
-      <button className="w-6/12 md:w-2/12 border-2 border-gray-500 rounded-lg p-2 outline-none justify-center items-center mx-auto cursor-pointer hover:bg-gray-500 hover:text-white transition-all duration-300">
-        Download as PDF
+      <button
+        className="w-6/12 md:w-2/12 border-2 border-gray-500 rounded-lg p-2 outline-none justify-center items-center mx-auto cursor-pointer hover:bg-gray-500 hover:text-white transition-all duration-300"
+        onClick={onclickDownloadHandler}
+      >
+        Download File
       </button>
     </div>
   );
